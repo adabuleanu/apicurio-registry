@@ -24,7 +24,7 @@ import io.apicurio.registry.content.extract.WsdlOrXsdContentExtractor;
 import io.apicurio.registry.content.refs.NoOpReferenceFinder;
 import io.apicurio.registry.content.refs.ReferenceFinder;
 import io.apicurio.registry.rules.compatibility.CompatibilityChecker;
-import io.apicurio.registry.rules.compatibility.NoopCompatibilityChecker;
+import io.apicurio.registry.rules.compatibility.XsdCompatibilityChecker;
 import io.apicurio.registry.rules.validity.ContentValidator;
 import io.apicurio.registry.rules.validity.XsdContentValidator;
 import io.apicurio.registry.types.ArtifactType;
@@ -47,7 +47,7 @@ public class XsdArtifactTypeUtilProvider extends AbstractArtifactTypeUtilProvide
      */
     @Override
     protected CompatibilityChecker createCompatibilityChecker() {
-        return NoopCompatibilityChecker.INSTANCE;
+        return new XsdCompatibilityChecker();
     }
 
     /**
@@ -78,7 +78,7 @@ public class XsdArtifactTypeUtilProvider extends AbstractArtifactTypeUtilProvide
     public ContentDereferencer getContentDereferencer() {
         return null;
     }
-    
+
     /**
      * @see io.apicurio.registry.types.provider.ArtifactTypeUtilProvider#getReferenceFinder()
      */
@@ -88,6 +88,8 @@ public class XsdArtifactTypeUtilProvider extends AbstractArtifactTypeUtilProvide
     }
 
     @Override
-    public boolean supportsReferencesWithContext() { return false; }
+    public boolean supportsReferencesWithContext() {
+        return false;
+    }
 
 }
